@@ -33,25 +33,31 @@ The framework automates functional test scenarios for the OrangeHRM demo applica
 ## Project Structure
 
 ```text
+
 playwright-ui-automation/
 │
 ├── pages/
 │   ├── LoginPage.js
 │   ├── DashBoardPage.js
 │   ├── PIMPage.js
-│   └── AdminPage.js
+│   ├── AdminPage.js
+│   ├── LeavePage.js
+│   └── MyInfoPage.js
 │
 ├── tests/
 │   ├── login.spec.js
 │   ├── dashboard.spec.js
 │   ├── pim.spec.js
-│   └── admin.spec.js
+│   ├── admin.spec.js
+│   ├── leave.spec.js
+│   └── myinfo.spec.js
 │
 ├── playwright.config.js
 ├── package.json
 ├── package-lock.json
 ├── .gitignore
 └── README.md
+
 ```
 
 ## Automated Test Scenarios
@@ -83,6 +89,20 @@ playwright-ui-automation/
 - TC_014 — Reset Admin user search
 - TC_015 — Open Add User form
 
+### Leave Module
+
+- TC_016 — Verify Leave List page
+- TC_017 — Search Leave records
+- TC_018 — Reset Leave search
+- TC_019 — Navigate to My Leave
+
+### My Info Module
+
+- TC_020 — Verify My Info page
+- TC_021 — Navigate to Contact Details
+- TC_022 — Navigate to Emergency Contacts
+- TC_023 — Navigate to Dependents
+
 ## Framework Design — Page Object Model
 
 The framework follows the Page Object Model design pattern to separate test logic from UI element locators and page interactions.
@@ -93,6 +113,8 @@ The framework follows the Page Object Model design pattern to separate test logi
 - `DashBoardPage.js` — Dashboard verification and navigation.
 - `PIMPage.js` — Employee search, employee creation, and editing.
 - `AdminPage.js` — Admin navigation, user search, and reset actions.
+- `LeavePage.js` - 
+- `MyInfoPage.js` -
 
 **Test Files**
 
@@ -139,28 +161,11 @@ Run all Chromium tests:
 npx playwright test --project=chromium
 ```
 
-Run Login tests:
+Run one test at a time Ex:Login tests:
 
 ```bash
 npx playwright test tests/login.spec.js --project=chromium
-```
 
-Run Dashboard tests:
-
-```bash
-npx playwright test tests/dashboard.spec.js --project=chromium
-```
-
-Run PIM tests:
-
-```bash
-npx playwright test tests/pim.spec.js --project=chromium
-```
-
-Run Admin tests:
-
-```bash
-npx playwright test tests/admin.spec.js --project=chromium
 ```
 
 Run tests in headed mode:

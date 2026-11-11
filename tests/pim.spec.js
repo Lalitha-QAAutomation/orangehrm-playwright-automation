@@ -91,24 +91,41 @@ test('TC_010 - Search newly created employee', async ({ page }) => {
 });
 
 
+
+
 test('TC_011 - Edit employee first name', async ({ page }) => {
     const pimPage = new PIMPage(page);
 
     await pimPage.openAddEmployeeForm();
 
-    const employeeName = `Edit${Date.now()}`;
+    const uniqueId = Date.now();
+    const employeeName = `Edit${uniqueId}`;
 
-    await pimPage.addEmployee(
-        employeeName,
-        'QA',
-        'Tester'
-    );
 
-    await expect(pimPage.personalDetailsHeading).toBeVisible();
+    await pimPage.addEmployee(employeeName, 'QA', 'Tester');
 
-    const updatedName = `Updated${Date.now()}`;
+    // Wait for navigation to the employee details URL
+    await page.waitForURL(/viewPersonalDetails/, {
+        timeout: 20000
+    });
 
+    // Verify Personal Details heading
+    await expect(pimPage.personalDetailsHeading).toBeVisible({
+        timeout: 20000
+    });
+
+
+    // Wait for original employee data
+    await expect(pimPage.firstNameField).toHaveValue(employeeName);
+
+    const updatedName = `Updated${uniqueId}`;
+
+    // Update and save employee
     await pimPage.updateFirstName(updatedName);
 
+    // Reload and verify the change was saved
+    await page.reload();
+
+    await expect(pimPage.personalDetailsHeading).toBeVisible();
     await expect(pimPage.firstNameField).toHaveValue(updatedName);
 });
