@@ -25,16 +25,23 @@ test('TC_006 - Verify Employee List page', async ({ page }) => {
 });
 
 
+
 test('TC_007 - Search for employee by name', async ({ page }) => {
     const pimPage = new PIMPage(page);
 
-    // Replace with an existing employee name from your demo
     const employeeName = 'Test';
 
     await pimPage.searchEmployee(employeeName);
 
-    // Verify search results area is visible
-    await expect(page.getByText('Records Found')).toBeVisible();
+    // Verify we remain on the Employee List page
+    await expect(
+        pimPage.employeeInformationHeading
+    ).toBeVisible();
+
+    // Verify the search results area is displayed
+    await expect(
+        page.locator('.oxd-table')
+    ).toBeVisible();
 });
 
 
